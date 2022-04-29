@@ -3,15 +3,11 @@ all:
   children:
     CVP:
       hosts:
-        cv_ztp:
-          ansible_host: pmathy-avd-test-1-bd050a63.topo.testdrive.arista.com
-          ansible_user: arista
-          ansible_password: arista3xqm
         cv_server:
-          ansible_httpapi_host: pmathy-avd-test-1-bd050a63.topo.testdrive.arista.com
-          ansible_host: pmathy-avd-test-1-bd050a63.topo.testdrive.arista.com
+          ansible_httpapi_host: atd-demo-snb-1-5a51471b.topo.testdrive.arista.com
+          ansible_host: atd-demo-snb-1-5a51471b.topo.testdrive.arista.com
           ansible_user: arista
-          ansible_password: arista3xqm
+          ansible_password: aristaukrb
           ansible_connection: httpapi
           ansible_httpapi_use_ssl: true
           ansible_httpapi_validate_certs: false
@@ -54,7 +50,7 @@ all:
             ansible_network_os: eos
             ansible_user: arista
             # should use vault for passwords
-            ansible_ssh_pass: arista3xqm
+            ansible_ssh_pass: aristaukrb
             ansible_become: true
             ansible_become_method: enable
             ansible_httpapi_use_ssl: true
