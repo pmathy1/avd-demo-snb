@@ -41,19 +41,7 @@ tenants:
             tags: [azone21]
             enabled: true
             ip_address_virtual: 10.1.20.1/24
-
-  # Tenant B Specific Information - VRFs / VLANs
-  Tenant_B:
-    mac_vrf_vni_base: 20000
-    vrfs:
-      Tenant_B_VRF1:
-        vrf_vni: 20
-        svis:
-          210:
-            name: Tenant_B_Zone1
-            tags: [bzone1]
-            enabled: true
-            ip_address_virtual: 10.2.10.1/24
+          
     l2vlans:
       260:
         name: Tenant_B_VMOTION
