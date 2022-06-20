@@ -1,0 +1,31 @@
+### FABRIC DCI ###
+l3_edge:
+  p2p_links_ip_pools:
+    dci_ip_pool: 172.29.0.0/24
+  p2p_links_profiles:
+    dci:
+      include_in_underlay_protocol: true
+      ip_pool: dci_ip_pool
+      mtu: 1500
+      bfd: true
+      as: [ 65001, 65002 ]
+    dc1_spine_local:
+      include_in_underlay_protocol: true
+      ip_pool: dci_ip_pool
+      mtu: 1500
+      bfd: true
+      as: [ 65001, 65001 ]
+
+  p2p_links:
+    - id: 1
+      profile: dci
+      nodes: [ eos2, eos1 ]
+      interfaces: [ Ethernet5, Ethernet1 ]
+    - id: 2
+      profile: dci
+      nodes: [ eos5, eos1 ]
+      interfaces: [ Ethernet4, Ethernet5 ]
+    - id: 3
+      profile: dc1_spine_local
+      nodes: [ eos2, eos5 ]
+      interfaces: [ Ethernet3, Ethernet3 ]

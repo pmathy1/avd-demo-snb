@@ -4,10 +4,10 @@ all:
     CVP:
       hosts:
         cv_server:
-          ansible_httpapi_host: atd-demo-snb-1-5a51471b.topo.testdrive.arista.com
-          ansible_host: atd-demo-snb-1-5a51471b.topo.testdrive.arista.com
+          ansible_httpapi_host: snb-test-1-6bb24b63.topo.testdrive.arista.com
+          ansible_host: snb-test-1-6bb24b63.topo.testdrive.arista.com
           ansible_user: arista
-          ansible_password: aristaukrb
+          ansible_password: arista1dgd
           ansible_connection: httpapi
           ansible_httpapi_use_ssl: true
           ansible_httpapi_validate_certs: false
@@ -15,8 +15,8 @@ all:
           ansible_httpapi_port: 443
           # Configuration to get Virtual Env information
           ansible_python_interpreter: $(which python3)
-    # DC1_Fabric - EVPN Fabric running in home lab
-    DC1:
+
+    DC_ALL:
       children:
         DC1_FABRIC:
           children:
@@ -24,41 +24,50 @@ all:
               vars:
                 type: spine
               hosts:
-                spine1:
-                  ansible_host: 10.255.0.10
-                spine2:
-                  ansible_host: 10.255.0.11
+                eos2:
+                  ansible_host: 192.168.0.11
+                eos5:
+                  ansible_host: 192.168.0.14
             DC1_L3LEAFS:
               vars:
                 type: l3leaf
               children:
                 DC1_LEAF12:
                   hosts:
-                    leaf1:
-                      ansible_host: 10.255.0.12
-                    leaf2:
-                      ansible_host: 10.255.0.13
-                DC1_LEAF34:
+                    eos3:
+                      ansible_host: 192.168.0.12
+                    eos4:
+                      ansible_host: 192.168.0.13
+        DC2_FABRIC:
+          children:
+            DC2_SPINES:
+              vars:
+                type: spine
+              hosts:
+                eos1:
+                  ansible_host: 192.168.0.10
+            DC2_L3LEAFS:
+              vars:
+                type: l3leaf
+              children:
+                DC2_LEAF34:
                   hosts:
-                    leaf3:
-                      ansible_host: 10.255.0.14
-                    leaf4:
-                      ansible_host: 10.255.0.15
-
-          vars:
-            ansible_connection: httpapi
-            ansible_network_os: eos
-            ansible_user: arista
-            # should use vault for passwords
-            ansible_ssh_pass: aristaukrb
-            ansible_become: true
-            ansible_become_method: enable
-            ansible_httpapi_use_ssl: true
-            ansible_httpapi_validate_certs: false
+                    eos11:
+                      ansible_host: 192.168.0.20
   
-        DC1_TENANTS_NETWORKS:
-          children:
-            DC1_L3LEAFS:
-        DC1_SERVERS:
-          children:
-            DC1_L3LEAFS:
+DC1_TENANTS_NETWORKS:
+  children:
+    DC1_L3LEAFS:
+DC1_SERVERS:
+  children:
+    DC1_L3LEAFS:
+DC2_TENANTS_NETWORKS:
+  children:
+    DC2_L3LEAFS:
+DC2_SERVERS:
+  children:
+    DC2_L3LEAFS:
+DCI:
+  children:
+    DC1_FABRIC:
+    DC2_FABRIC:

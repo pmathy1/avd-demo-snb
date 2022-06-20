@@ -1,38 +1,35 @@
 ---
-fabric_name: DC1_FABRIC
+fabric_name: DC2_FABRIC
 
 # Spine Switches
 spine:
   defaults:
     platform: cEOS
-    bgp_as: 65001
-    loopback_ipv4_pool: 192.168.255.0/24
+    bgp_as: 65002
+    loopback_ipv4_pool: 192.168.253.0/24
     bgp_defaults:
       - 'no bgp default ipv4-unicast'
       - 'distance bgp 20 200 200'
       - 'graceful-restart restart-time 300'
       - 'graceful-restart'
-    evpn_route_servers: [ eos1 ]
+    evpn_route_servers: [ eos2, eos5 ]
     mlag_peer_ipv4_pool: 10.255.251.0/24
     mlag_peer_l3_ipv4_pool: 10.255.250.0/24
   nodes:
-    eos2:
+    eos1:
       id: 1
-      mgmt_ip: 192.168.0.11/24
-    eos5:
-      id: 2
-      mgmt_ip: 192.168.0.14/24
+      mgmt_ip: 192.168.0.10/24
 
 l3leaf:
   defaults:
     platform: cEOS
-    loopback_ipv4_pool: 192.168.255.0/24
+    loopback_ipv4_pool: 192.168.253.0/24
     loopback_ipv4_offset: 2
-    vtep_loopback_ipv4_pool: 192.168.254.0/24
-    uplink_interfaces: ['Ethernet3', 'Ethernet4']
-    uplink_switches: ['eos2', 'eos5']
-    uplink_ipv4_pool: 172.31.255.0/24
-    mlag_interfaces: [ Ethernet5 ]
+    vtep_loopback_ipv4_pool: 192.168.252.0/24
+    uplink_interfaces: ['Ethernet1']
+    uplink_switches: ['eos1']
+    uplink_ipv4_pool: 172.31.254.0/24
+    mlag_interfaces: [ Ethernet3 ]
     mlag_peer_ipv4_pool: 10.255.251.0/24
     mlag_peer_l3_ipv4_pool: 10.255.250.0/24
     virtual_router_mac_address: 00:1c:73:00:dc:01
@@ -44,16 +41,11 @@ l3leaf:
     spanning_tree_mode: mstp
     spanning_tree_priority: 16384
   node_groups:
-    DC1_LEAF12:
-      bgp_as: 65101
+    DC1_LEAF34:
+      bgp_as: 65201
       nodes:
-        eos3:
+        eos11:
           id: 1
-          mgmt_ip: 192.168.0.12/24
+          mgmt_ip: 192.168.0.20/24
           # Interface configured on SPINES to connect to this leaf
-          uplink_switch_interfaces: [Ethernet1, Ethernet2]
-        eos4:
-          id: 2
-          mgmt_ip: 192.168.0.13/24
-          # Interface configured on SPINES to connect to this leaf
-          uplink_switch_interfaces: [Ethernet2, Ethernet1]
+          uplink_switch_interfaces: [Ethernet3]
