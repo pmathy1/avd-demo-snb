@@ -4,10 +4,10 @@ all:
     CVP:
       hosts:
         cv_server:
-          ansible_httpapi_host: snb-test-1-6bb24b63.topo.testdrive.arista.com
-          ansible_host: snb-test-1-6bb24b63.topo.testdrive.arista.com
+          ansible_httpapi_host: sub-demo-1-6f753a86.topo.testdrive.arista.com
+          ansible_host: sub-demo-1-6f753a86.topo.testdrive.arista.com
           ansible_user: arista
-          ansible_password: arista1dgd
+          ansible_password: arista26p0
           ansible_connection: httpapi
           ansible_httpapi_use_ssl: true
           ansible_httpapi_validate_certs: false
