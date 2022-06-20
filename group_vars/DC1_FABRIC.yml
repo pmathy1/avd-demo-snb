@@ -29,8 +29,8 @@ l3leaf:
     loopback_ipv4_pool: 192.168.255.0/24
     loopback_ipv4_offset: 2
     vtep_loopback_ipv4_pool: 192.168.254.0/24
-    uplink_interfaces: ['Ethernet3', 'Ethernet4']
-    uplink_switches: ['eos2', 'eos5']
+    uplink_interfaces: [ Ethernet3, Ethernet4 ]
+    uplink_switches: [ eos2, eos5 ]
     uplink_ipv4_pool: 172.31.255.0/24
     mlag_interfaces: [ Ethernet5 ]
     mlag_peer_ipv4_pool: 10.255.251.0/24
@@ -41,8 +41,7 @@ l3leaf:
       - 'distance bgp 20 200 200'
       - 'graceful-restart restart-time 300'
       - 'graceful-restart'
-    spanning_tree_mode: mstp
-    spanning_tree_priority: 16384
+    spanning_tree_mode: none
   node_groups:
     DC1_LEAF12:
       bgp_as: 65101
@@ -51,9 +50,9 @@ l3leaf:
           id: 1
           mgmt_ip: 192.168.0.12/24
           # Interface configured on SPINES to connect to this leaf
-          uplink_switch_interfaces: [Ethernet1, Ethernet2]
+          uplink_switch_interfaces: [ Ethernet1, Ethernet2 ]
         eos4:
           id: 2
           mgmt_ip: 192.168.0.13/24
           # Interface configured on SPINES to connect to this leaf
-          uplink_switch_interfaces: [Ethernet2, Ethernet1]
+          uplink_switch_interfaces: [ Ethernet2, Ethernet1 ]
