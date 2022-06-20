@@ -22,6 +22,16 @@ tenants:
             tags: [azone12]
             enabled: true
             ip_address_virtual: 10.1.11.1/24
+        l3_interfaces:
+          - interfaces: [Ethernet10.1101]
+            ip_addresses: [169.254.101.1/29]
+            nodes: [eos3]
+        bgp_peers:
+          169.254.101.2:
+            remote_as: 65903
+            send_community: all
+            nodes: [eos3]
+            bfd: true
 
       Tenant_A_VRF2:
         vrf_vni: 11
