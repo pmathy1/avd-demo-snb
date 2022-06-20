@@ -1,5 +1,5 @@
 ---
-fabric_name: DC1_FABRIC
+dc_name: DC1_FABRIC
 
 # Spine Switches
 spine:
