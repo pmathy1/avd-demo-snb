@@ -23,12 +23,13 @@ tenants:
             enabled: true
             ip_address_virtual: 10.1.11.1/24
         l3_interfaces:
-          - interfaces: [Ethernet6.1101]
+          - interfaces: [Portchannel10.1101]
             ip_addresses: [169.254.101.1/29]
             nodes: [eos3]
         bgp_peers:
           169.254.101.2:
             remote_as: 65903
+            local_as: 12345
             send_community: all
             nodes: [eos3]
             bfd: true
@@ -46,3 +47,18 @@ tenants:
       260:
         name: Tenant_B_VMOTION
         tags: [vmotion]
+        
+core_interfaces:
+  p2p_links:
+      # Unique id per subnet_summary. Used to calculate ip addresses | Required with ip_pool
+    - id: 1
+      # Nodes where this link should be configured | Required
+      nodes: [ eos3, eos4 ]
+      # Enable BFD (only considered for BGP) | Optional
+      bfd: true
+      # Port-channel parameters
+      port_channel:
+        mode: active
+        nodes_child_interfaces:
+          eos3: [ 'Ethernet1' ]
+          eos4: [ 'Ethernet1' ]
